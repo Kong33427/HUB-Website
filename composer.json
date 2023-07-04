@@ -1,5 +1,6 @@
 {
     "require": {
-        "adodb/adodb-php": "5.22"
+        "adodb/adodb-php": "5.22",
+        "twbs/bootstrap-icons": "^1.10"
     }
 }

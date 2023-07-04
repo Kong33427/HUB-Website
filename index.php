@@ -10,17 +10,16 @@ $row=$conn->index();
 // echo '</pre>';
 // echo $row[0]["CATEGORY"];
 foreach($row as $key => $value){
-    $department[$value["CATEGORY"]] = $value["CATEGORY"];
-    $link[$value["CATEGORY"]][] = $value["LINK"];
-    $name[$value["CATEGORY"]][] = $value["NAME"];
+    $department[$value["BU"]] = $value["BU"];
+    $bu_icon[$value["BU"]][] = $value["BU_ICON"];
 }
 // echo '<pre>';
-// var_dump($name);
+// var_dump($cate_icon);
 // echo '</pre>';
 // foreach($department as $keys => $values){
-//     echo $values.'-'.count($link[$values])."<br>";
-//     foreach($link[$values] as $row => $data){
-//         echo $data.'-'.$name[$values][$row]."<br>";
+//     echo $values."<br>";
+//     foreach($bu_icon[$values] as $row => $data){
+//         echo $bu_icon[$values][$row]."<br>";
 //     }
 // }
 ?>
@@ -34,7 +33,7 @@ foreach($row as $key => $value){
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
     </head>
@@ -58,12 +57,12 @@ foreach($row as $key => $value){
                 <div class="row gx-5">
                     <?php
                 foreach($department as $keys => $values){
-                    echo '<div class="col-lg-3  my-3 rounded">';
-                    echo '<div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>';
-                    echo '<h2 class="h4 fw-bolder">'.$values.'</h2>';
-                    foreach($link[$values] as $row => $data){
-                        echo '<a class="text-decoration-none" href="'.$data.'">'.$data.'<i class="bi bi-arrow-right">'.$name[$values][$row].'</i></a><br>';
-                    }
+                    echo '<div class="card text-center col-lg-3 mx-auto my-4 rounded" style="width: 300px; height:150px;">';
+                    echo '<a href="category.php?BU='.$values.'">';
+                    echo '<div class="feature my-3 bg-secondary bg-gradient text-white rounded-3 mb-3">'.$bu_icon[$values][0].'</div>';
+                    echo '<hr class="my-2 mx-auto">';
+                    echo '<h2 class="h4 fw-bolder text-black">'.$values.'</h2>';
+                    echo '</a>';
                     echo '</div>';
                 }
                     ?>

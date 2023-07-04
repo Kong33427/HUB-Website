@@ -5,15 +5,6 @@ require_once __DIR__ . '/const_sys.php';
 
 class PdaWcsPermissionUserCtrl
 {
-	// function index (Request $request, Response $response)
-	// {
-	// 	$response = $response->withJson([
-	//     	'status' => true,
-	//     	'msg' => 'Check PdaWcsPermissionUserCtrl.',
-	//     	'data' => []
-	//     ]);
-	//     return $response;
-	// }
 
 	function index() {
 		//SQL code
@@ -29,10 +20,54 @@ class PdaWcsPermissionUserCtrl
 		//get row
 		$row=$result->getAll();
 		return $row;
+	}
+}
+class PdaWcsPermissionUserCtrlCategory
+{
+
+	function index() {
+		//SQL code
+		$BU=$_GET['BU'];
+		$connect = new Connect();
+		$conn = $connect->getConnect('oci');
+
+		$sql = 'SELECT *';
+		$sql .= ' FROM HUB_LINK';
+		$sql .= " WHERE BU='".$BU."'";
+		// var_dump($sql);
+		//prepare execute
+		$stmt = $conn->prepare($sql);
+		//execute
+		$result = $conn->Execute($stmt);
+		//get row
+		$row=$result->getAll();
+		return $row;
+	}
+}
+class PdaWcsPermissionUserCtrlLink
+{
+
+	function index() {
+		//SQL code
+		$category=$_GET['CATEGORY'];
+		$BU=$_GET['BU'];
+		$connect = new Connect();
+		$conn = $connect->getConnect('oci');
+
+		$sql = 'SELECT *';
+		$sql .= ' FROM HUB_LINK';
+		$sql .= " WHERE CATEGORY='".$category."'";
+		$sql .= " AND BU='".$BU."'";
+		// var_dump($sql);
+		//prepare execute
+		$stmt = $conn->prepare($sql);
+		//execute
+		$result = $conn->Execute($stmt);
+		//get row
+		$row=$result->getAll();
+		return $row;
 
 	}
 
 }
 
-
-?>
