@@ -100,7 +100,7 @@ foreach($row as $key => $value){
         <div class="row">
           <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
             <div class="page-title home text-center">
-            <h2>Nanyang <span class="primary">Textile</span> <span class="title-bg">Nanyang</span></h2>
+            <h2>Nanyang <span class="primary">Textile</span> <span class="title-bg"  style="left: -85px;">Nanyang</span></h2>
             <?php
                     echo '<h1><b>'.$_GET['BU'].'</b></h1>';
                     ?>
@@ -123,8 +123,9 @@ foreach($row as $key => $value){
             echo    '</div>';
             echo    '<a href="link.php?BU='.$_GET['BU'].'&&CATEGORY='.$values.'" class="hex-content">';
             echo       '<span class="hex-content-inner">';
-            echo        '<span class="icon">';
-            echo         ' <i class="'.$category_icon[$values][0].'"></i>';
+            echo        '<span class="icon" style="margin-top:-40px;" >';
+            // echo         ' <i class="'.$category_icon[$values][0].'"></i>';
+            echo '<img src="assets/img/category/'.$category_icon[$values][0].'.jpg" alt="" style="width: 80px; height: 80px;border-radius: 50%;  margin-top: 50px;">';
             echo        '</span>';
             echo        '<span class="title pt-3">'.$values.'</span>';
             echo     ' </span>';

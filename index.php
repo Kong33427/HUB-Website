@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '/database/index_controller.php';
 $conn = new PdaWcsPermissionUserCtrl();
 
@@ -62,7 +63,7 @@ foreach($row as $key => $value){
 
 </head>
 <body id="page-top" style="background-image: url('assets/img/background.jpg'); background-repeat: no-repeat;  background-size: cover;">
-
+</div>
   <div class="preloader">
     <div class="loading-mask"></div>
     <div class="loading-mask"></div>
@@ -70,7 +71,16 @@ foreach($row as $key => $value){
     <div class="loading-mask"></div>
     <div class="loading-mask"></div>
   </div>
+  <div class="row">
+<?php
+if ($_SESSION["is_admin"] == 'Y'){
+echo '<a href="add.php"><div type="button" class="btn btn-primary btn-custom-border text-uppercase col-md-3" >Create new link</div></a>';
+echo '<a href="logout.php"><button class="btn btn-primary btn-custom-border text-uppercase col-md-2 col-md-offset-7" >logout</button></a>';
+}else{
+  echo '<a href="logout.php"><button class="btn btn-primary btn-custom-border text-uppercase col-md-2 col-md-offset-10" >logout</button></a>';
+}
 
+?>
   <div class="preview-wrapper">
     <div class="switcher-head">
       <span>Style Switcher</span>
@@ -97,7 +107,7 @@ foreach($row as $key => $value){
         <div class="row">
           <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
             <div class="page-title home text-center">
-            <h2>Nanyang <span class="primary">Textile</span> <span class="title-bg">Nanyang</span></h2>
+            <h2>Nanyang <span class="primary">Textile</span> <span class="title-bg" style="left: -85px;">Nanyang</span></h2>
               <p>HUB center</p>
             </div>
 
@@ -120,7 +130,7 @@ foreach($row as $key => $value){
             echo       '<span class="hex-content-inner">';
             echo        '<span class="icon" style="margin-top:-40px;" >';
             // echo        '<span class="'.$bu_icon[$values][0].'"></span>';
-            echo '<img src="assets/img/'.$values.'.jpg" alt="" style="width: 80px; height: 80px;border-radius: 50%;  margin-top: 50px;">';
+            echo '<img src="assets/img/bu/'.$bu_icon[$values][0].'.jpg" alt="" style="width: 80px; height: 80px;border-radius: 50%;  margin-top: 50px;">';
             echo        '</span>';
             echo        '<span class="title pt-3">'.$values.'</span>';
             echo     ' </span>';
