@@ -71,32 +71,16 @@ foreach($row as $key => $value){
     <div class="loading-mask"></div>
     <div class="loading-mask"></div>
   </div>
-  <div class="row">
 <?php
+if (isset($_SESSION["is_admin"])){
 if ($_SESSION["is_admin"] == 'Y'){
-echo '<a href="add.php"><div type="button" class="btn btn-primary btn-custom-border text-uppercase col-md-3" >Create new link</div></a>';
-echo '<a href="logout.php"><button class="btn btn-primary btn-custom-border text-uppercase col-md-2 col-md-offset-7" >logout</button></a>';
+  include 'include/menu.php';
 }else{
   echo '<a href="logout.php"><button class="btn btn-primary btn-custom-border text-uppercase col-md-2 col-md-offset-10" >logout</button></a>';
 }
-
+}
 ?>
-  <div class="preview-wrapper">
-    <div class="switcher-head">
-      <span>Style Switcher</span>
-      <div class="switcher-trigger tf-tools"></div>
-    </div>
 
-    <div class="switcher-body">
-      <h4>Choose Color:</h4>
-      <ul class="color-options list-none">
-        <li class="c0" data-color="red" title="Default">Default</li>
-        <li class="c1" data-color="blue" title="Red">Red</li>
-        <li class="c2" data-color="green" title="Green">Green</li>
-        <li class="c3" data-color="yellow" title="Blue">Blue</li>
-      </ul>
-    </div>
-  </div>
 
 <main class="site-wrapper">
   <div class="pt-table">

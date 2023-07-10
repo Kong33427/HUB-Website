@@ -1,23 +1,4 @@
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
 
-<!-- 
-THEME: Phantom - Bootstrap Portfolio Template
-VERSION: 1.0.0
-AUTHOR: Themefisher
-
-HOMEPAGE: https://themefisher.com/products/phantom-best-bootstrap-portfolio-template/
-DEMO: https://demo.themefisher.com/phantom/
-GITHUB: https://github.com/themefisher/Phantom-Bootstrap-Portfolio-Template
-
-WEBSITE: https://themefisher.com
-TWITTER: https://twitter.com/themefisher
-FACEBOOK: https://www.facebook.com/themefisher
--->
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -90,9 +71,7 @@ FACEBOOK: https://www.facebook.com/themefisher
           <div class="row">
             <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
               <div class="page-title text-center">
-                <h2>Get in <span class="primary">touch</span> <span class="title-bg">Contact</span></h2>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                  laoreet dolore magna aliquam erat volutpat.</p>
+                <h2>Create new link</span></h2>
               </div>
             </div>
           </div> <!-- /.row -->
@@ -108,39 +87,33 @@ FACEBOOK: https://www.facebook.com/themefisher
               <form id="contact-form" class="row contact-form no-gutter" action="#" method="post">
               <div class="col-xs-12 col-sm-12">
                   <div class="input-field">
-                    <span class="input-icon" id="subject"><i class="tf-pricetags"></i></span>
-                    <input type="text" style="background-color:whitesmoke; color:black;" class="form-control" name="BU" placeholder="BU" required>
+                    <span class="input-icon" id="subject"><i class="tf-linegraph"></i></span>
+                    <input type="text" style="background-color:whitesmoke; color:black;" class="form-control" name="bu" placeholder="BU" required>
                   </div>
                 </div> <!-- ./col- -->
                 <div class="col-xs-12 col-sm-12">
                   <div class="input-field name">
-                    <span class="input-icon" id="name"><i class="tf-profile-male"></i></span>
+                    <span class="input-icon" id="name"><i class="tf-megaphone"></i></span>
                     <input type="text" class="form-control"  style="background-color:whitesmoke; color:black;" name="category" placeholder="Category" required>
                   </div>
                 </div> <!-- ./col- -->
                 <div class="col-xs-12 col-sm-6">
                   <div class="input-field name">
-                    <span class="input-icon" id="name"><i class="tf-profile-male"></i></span>
+                    <span class="input-icon" id="name"><i class="tf-ion-wifi"></i></span>
                     <input type="text" class="form-control" style="background-color:whitesmoke; color:black;"style="background-color:aqua;" name="name" placeholder="Link name" required>
                   </div>
                 </div> <!-- ./col- -->
                 <div class="col-xs-12 col-sm-6">
                   <div class="input-field email">
-                    <span class="input-icon" id="email"><i class="tf-envelope2"></i></span>
-                    <input type="email" class="form-control"  style="background-color:whitesmoke; color:black;" name="link" placeholder="Link" required>
+                    <span class="input-icon" id="email"><i class="tf-document3"></i></span>
+                    <input type="text" class="form-control"  style="background-color:whitesmoke; color:black;" name="link" placeholder="Link" required>
                   </div>
                 </div> <!-- ./col- -->
                 <div class="col-xs-12 col-sm-12">
                   <div class="input-field message">
                     <span class="input-icon"><i class="tf-pencil2"></i></span>
-                    <textarea name="message" id="message" class="form-control"
+                    <input id="message" class="form-control"
                     name="description" placeholder="Description"  style="background-color:whitesmoke; color:black;" required></textarea>
-                  </div>
-                </div> <!-- ./col- -->
-                <div class="col-xs-12 col-sm-12">
-                  <div class="input-field name">
-                    <span class="input-icon" id="name"><i class="tf-profile-male"></i></span>
-                    <input type="text" class="form-control"  style="background-color:whitesmoke; color:black;" name="location" placeholder="Location" required>
                   </div>
                 </div> <!-- ./col- -->
                 <div class="col-xs-12 col-sm-12">
@@ -173,7 +146,74 @@ FACEBOOK: https://www.facebook.com/themefisher
     </div> <!-- /.pt-table -->
   </main> <!-- /.site-wrapper -->
   
+  <?php
+var_dump($_POST['bu']);
+var_dump($_POST['category']);
+var_dump($_POST['name']);
+var_dump($_POST['link']);
+var_dump($_POST['description']);
+var_dump($_POST['location']);
+$bu=$_POST['bu'];
+$category=strtoupper($_POST['category']);
+$link=$_POST['link'];
+$link_name=$_POST['name'];
+$description=$_POST['description'];
+if($bu != ''){
+include (__DIR__. "/database/vendor/adodb/adodb-php/adodb.inc.php");
+          $dns = "(DESCRIPTION=
+            (ADDRESS=
+               (PROTOCOL=TCP)
+                           (HOST=172.16.7.36)
+                           (PORT=1521)
+                        )
+                        (CONNECT_DATA=
+                          (SERVER=dedicated)
+              (SERVICE_NAME=NYTG)
+                        )
+                  )
+            ";
 
+          $dbUser = "WEBCONTROL";
+          $dbPass = "test";
+
+          $conn = NewADOConnection('oci8');
+          $conn->setCharset('utf8');
+          $conn->setConnectionParameter('session_mode', OCI_SYSDBA);
+
+          try {
+            if (!$conn->connect($dns, $dbUser, $dbPass)) {
+              echo json_encode([
+                  'status' => false,
+                  'msg' => 'Connect database fail.',
+                  'data' => []
+                ]); exit;
+            }
+          } catch (Exception $e) {
+            echo json_encode([
+                'status' => false,
+                'msg' => $e->getMessage(),
+                'data' => []
+              ]); exit;
+          } finally {
+            // unset($dns, $dbUser, $dbPass);
+          }
+
+          //prepare execute
+          $sql = "INSERT INTO HUB_LINK(BU, CATEGORY, LINK, NAME, DETAIL)";
+          $sql .= " VALUES ('".$bu."','".$category."','".$link."','".$link_name."','".$description."')";
+          $stmt = $conn->prepare($sql);
+          //execute
+          $result = $conn->Execute($stmt);
+          if (!$result) {
+            var_dump($conn->errorMsg());
+          }
+          // //get row
+          $row = $result->FetchRow();
+          // var_dump($row);
+          
+          $conn->close();
+        }
+?>
 <!-- 
 Essential Scripts
 =====================================-->
